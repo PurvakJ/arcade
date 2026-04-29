@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>🎮 NEXUS ARCADE | 15-in-1 Game Console</title>
+    <!-- Google Fonts & modern styling -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: radial-gradient(circle at 10% 20%, #0a0f1f, #03050b);
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* MAIN CONSOLE CARD — premium glassmorphism */
+        .console {
+            max-width: 1480px;
+            width: 100%;
+            background: rgba(12, 18, 28, 0.68);
+            backdrop-filter: blur(14px);
+            border-radius: 3rem;
+            border: 1px solid rgba(0, 255, 255, 0.35);
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        /* HEADER with neon glow */
+        .console-header {
+            padding: 1.2rem 2rem;
+            background: rgba(0, 10, 20, 0.75);
+            border-bottom: 1px solid rgba(0, 255, 200, 0.5);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .brand h1 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #b9ffea, #2effe6, #ffd966);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .badge {
+            background: #0ff22a20;
+            border: 1px solid #0ff8;
+            border-radius: 100px;
+            padding: 0.2rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #8effe0;
+            font-family: monospace;
+        }
+
+        .controls-hint {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.7rem;
+            background: #050a10aa;
+            padding: 0.4rem 1.3rem;
+            border-radius: 3rem;
+            color: #bbffdd;
+            font-weight: 500;
+        }
+
+        /* GAME GRID — responsive launcher */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(118px, 136px));
+            gap: 0.9rem;
+            padding: 1.6rem 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(72, 255, 220, 0.25);
+            justify-content: center;
+        }
+
+        .game-card {
+            background: rgba(20, 30, 48, 0.85);
+            backdrop-filter: blur(4px);
+            border-radius: 1.5rem;
+            padding: 0.7rem 0.3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid #2cffdd50;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            background: #2a456cee;
+            border-color: #0ff;
+            box-shadow: 0 12px 20px rgba(0, 255, 200, 0.25);
+        }
+
+        .game-emoji {
+            font-size: 2.4rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .game-name {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #e3fffa;
+            letter-spacing: 0.5px;
+        }
+
+        /* ACTIVE GAME AREA — full iframe immersion */
+        .game-frame-wrapper {
+            background: #01050cee;
+            margin: 1.2rem 1.8rem 1.8rem 1.8rem;
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 2px #0ff2, 0 20px 35px rgba(0, 0, 0, 0.6);
+            transition: all 0.2s;
+        }
+
+        .game-container {
+            width: 100%;
+            min-height: 560px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #030c12;
+            position: relative;
+        }
+
+        iframe {
+            width: 100%;
+            height: 560px;
+            border: none;
+            display: block;
+            background: #000000;
+        }
+
+        .back-button {
+            margin: 0 1.8rem 1.5rem 1.8rem;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .btn-return {
+            background: linear-gradient(145deg, #2a3a4a, #0e1a28);
+            border: none;
+            font-family: 'Inter', monospace;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.6rem 1.6rem;
+            border-radius: 3rem;
+            color: #b5ffe0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(4px);
+            transition: 0.1s linear;
+            box-shadow: 0 3px 0 #001e2a;
+        }
+
+        .btn-return:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #001e2a;
+        }
+
+        .info-message {
+            text-align: center;
+            padding: 2rem;
+            color: #aaffdd;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 780px) {
+            .game-grid {
+                gap: 0.6rem;
+                padding: 1rem;
+                grid-template-columns: repeat(auto-fill, minmax(90px, 100px));
+            }
+            .game-name {
+                font-size: 0.6rem;
+            }
+            .game-emoji {
+                font-size: 1.9rem;
+            }
+            .console-header {
+                padding: 0.8rem 1rem;
+            }
+            .brand h1 {
+                font-size: 1.3rem;
+            }
+            .game-frame-wrapper {
+                margin: 0.8rem;
+            }
+            iframe {
+                height: 460px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            iframe {
+                height: 420px;
+            }
+            .btn-return {
+                padding: 0.4rem 1.2rem;
+                font-size: 0.7rem;
+            }
+            .info-message {
+                font-size: 0.7rem;
+            }
+        }
+
+        .active-card {
+            border-left: 3px solid cyan;
+        }
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #051015;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0ff9;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="console">
+    <div class="console-header">
+        <div class="brand">
+            <h1>🎮 NEXUS ARCADE</h1>
+            <div class="badge">15 CLASSICS • LIVE</div>
+        </div>
+        <div class="controls-hint">
+            <span>📱 TOUCH / MOUSE</span>
+            <span>⌨️ FULL GAME CONTROLS</span>
+        </div>
+    </div>
+
+    <div class="game-grid" id="gameGrid"></div>
+
+    <div class="game-frame-wrapper" id="gameFrameWrapper" style="display: none;">
+        <div class="game-container">
+            <iframe id="gameIframe" title="game-console" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-pointer-lock allow-orientation-lock"></iframe>
+        </div>
+        <div class="back-button">
+            <button class="btn-return" id="closeGameBtn">⬅ CLOSE GAME / BACK TO MENU</button>
+        </div>
+    </div>
+    <div id="welcomeMessage" class="info-message">
+        ✨ LAUNCH ANY GAME FROM THE GRID ✨ <br>
+        🎯 FLAPPY · RUNNER · 2048 · BLOCK PUZZLE · BOTTLE BREAK · BREAKOUT · CHESS · GUN CONTRA · MEMORY · BIKE RUSH · PONG · SNAKE · SPACE WAR · TANK · TOWER DEFENSE
+    </div>
+</div>
+
+<script>
+    // =============== MASTER GAME LIST (URLs + metadata) ===============
+    // All 15 games from the provided links. Each object contains name, emoji, and the target URL.
+    const games = [
+        { id: "flappy", name: "Flappy Bird", emoji: "🐦", url: "https://purvakj.github.io/flappy/" },
+        { id: "runner", name: "Endless Runner", emoji: "🏃", url: "https://purvakj.github.io/2drunner/" },
+        { id: "game2048", name: "2048", emoji: "🧩", url: "https://purvakj.github.io/2048/" },
+        { id: "blockpuzzle", name: "Block Puzzle", emoji: "🧱", url: "https://purvakj.github.io/blockpuzzle/" },
+        { id: "bottlebreak", name: "Bottle Break", emoji: "🍾", url: "https://purvakj.github.io/bottlebreak/" },
+        { id: "breakout", name: "Power Breakout", emoji: "🧱", url: "https://purvakj.github.io/breakout/" },
+        { id: "chess", name: "Royal Chess", emoji: "♞", url: "https://purvakj.github.io/chess/" },
+        { id: "gungame", name: "Contra Gun", emoji: "🔫", url: "https://purvakj.github.io/gungame/" },
+        { id: "memory", name: "Memory Match", emoji: "🎴", url: "https://purvakj.github.io/memorycard/" },
+        { id: "bikerace", name: "Moto Rush 3D", emoji: "🏍️", url: "https://purvakj.github.io/bikerace/" },
+        { id: "pong", name: "Arcade Pong", emoji: "🏓", url: "https://purvakj.github.io/pong/" },
+        { id: "snake", name: "Warp Snake", emoji: "🐍", url: "https://purvakj.github.io/snake/" },
+        { id: "spacewar", name: "Space War", emoji: "🚀", url: "https://purvakj.github.io/spacewar/" },
+        { id: "tank", name: "Tank Battle", emoji: "💥", url: "https://purvakj.github.io/tank/" },
+        { id: "towerdef", name: "Tower Defense", emoji: "🗼", url: "https://purvakj.github.io/towerdefence/" }
+    ];
+
+    // DOM elements
+    const gameGrid = document.getElementById('gameGrid');
+    const gameFrameWrapper = document.getElementById('gameFrameWrapper');
+    const gameIframe = document.getElementById('gameIframe');
+    const welcomeMsg = document.getElementById('welcomeMessage');
+    const closeBtn = document.getElementById('closeGameBtn');
+
+    // Track current active game to avoid redundant loads
+    let currentGameId = null;
+
+    // Build interactive grid
+    function buildGameGrid() {
+        gameGrid.innerHTML = '';
+        games.forEach(game => {
+            const card = document.createElement('div');
+            card.className = 'game-card';
+            card.setAttribute('data-id', game.id);
+            card.innerHTML = `
+                <span class="game-emoji">${game.emoji}</span>
+                <span class="game-name">${game.name}</span>
+            `;
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                launchGame(game.id, game.url);
+            });
+            gameGrid.appendChild(card);
+        });
+    }
+
+    // Launch game: display iframe and load URL with extra safety and responsiveness
+    function launchGame(gameId, gameUrl) {
+        if (currentGameId === gameId && gameFrameWrapper.style.display === 'block') {
+            // already active - optional but we just focus
+            gameIframe.focus();
+            return;
+        }
+        currentGameId = gameId;
+
+        // Important: remove old sandbox restrictions to ensure game works (allow scripts, pointer lock, etc)
+        // but preserve security: we only load trusted URLs from purvakj.github.io.
+        gameIframe.sandbox = "allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-pointer-lock allow-orientation-lock allow-popups-to-escape-sandbox";
+        
+        // Load the game URL
+        gameIframe.src = gameUrl;
+        
+        // Show the frame and hide welcome message
+        gameFrameWrapper.style.display = 'block';
+        welcomeMsg.style.display = 'none';
+        
+        // Smooth scroll to iframe for better UX on mobile
+        gameFrameWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        // Optional: add active card highlight (remove any existing highlight)
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.style.borderLeft = 'none';
+            if (card.getAttribute('data-id') === gameId) {
+                card.style.borderLeft = '3px solid #0ff';
+                card.style.boxShadow = '0 0 12px rgba(0,255,200,0.4)';
+            } else {
+                card.style.borderLeft = '';
+                card.style.boxShadow = '';
+            }
+        });
+    }
+
+    // Reset and close game, return to menu
+    function closeGameAndReset() {
+        gameFrameWrapper.style.display = 'none';
+        welcomeMsg.style.display = 'block';
+        // Clear iframe src to stop all game scripts/sounds/animations
+        gameIframe.src = 'about:blank';
+        currentGameId = null;
+        // remove highlight from all cards
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.style.borderLeft = '';
+            card.style.boxShadow = '';
+        });
+    }
+
+    // Event listener for close button
+    closeBtn.addEventListener('click', closeGameAndReset);
+
+    // Handle escape key to close game (optional but intuitive)
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && gameFrameWrapper.style.display === 'block') {
+            closeGameAndReset();
+            e.preventDefault();
+        }
+    });
+
+    // If iframe fails to load (network), show fallback message?
+    gameIframe.addEventListener('error', () => {
+        if (currentGameId) {
+            console.warn("Game failed to load, but user can retry");
+            // optional: display a small message inside iframe? we decide not to overlay.
+        }
+    });
+
+    // Build the grid on load
+    buildGameGrid();
+
+    // Initial state: welcome visible, console ready
+    welcomeMsg.style.display = 'block';
+    gameFrameWrapper.style.display = 'none';
+    
+    // Preload hint: when user hovers a game, we can preconnect? Not needed but adds polish.
+    // optional performance: add prefetch on hover?
+    let prefetchTimeout;
+    function prefetchGame(url) {
+        const link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.href = url;
+        document.head.appendChild(link);
+        setTimeout(() => { if(link) link.remove(); }, 5000);
+    }
+    // Attach hover prefetch for desktop smoothness
+    document.querySelectorAll('.game-card').forEach((card, idx) => {
+        const gameUrl = games[idx].url;
+        card.addEventListener('mouseenter', () => {
+            if (prefetchTimeout) clearTimeout(prefetchTimeout);
+            prefetchTimeout = setTimeout(() => prefetchGame(gameUrl), 150);
+        });
+        card.addEventListener('mouseleave', () => {
+            if (prefetchTimeout) clearTimeout(prefetchTimeout);
+        });
+    });
+</script>
+</body>
+</html>
